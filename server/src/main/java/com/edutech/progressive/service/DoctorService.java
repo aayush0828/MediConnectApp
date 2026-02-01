@@ -17,7 +17,7 @@ public interface DoctorService {
     }
 
     //Do not implement these methods in DoctorServiceImplArraylist.java class
-    default public void updateDoctor(Doctor doctor)throws Exception { }
+    public Doctor updateDoctor(Doctor doctor) throws Exception;
 
     default public void deleteDoctor(int doctorId)throws Exception { }
 
