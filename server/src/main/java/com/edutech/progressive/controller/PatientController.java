@@ -72,10 +72,10 @@ public class PatientController {
     }
 
     @DeleteMapping("/{patientId}")
-    public ResponseEntity<?> deletePatient(@PathVariable int patientId) {
+    public ResponseEntity<Void> deletePatient(@PathVariable int patientId) {
         try {
             jpaService.deletePatient(patientId);
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+            return ResponseEntity.noContent().build();
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

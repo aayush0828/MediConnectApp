@@ -46,9 +46,11 @@ public class PatientServiceImplJpa implements PatientService {
     }
 
     @Override
-    public void deletePatient(int patientId) {
+    public void deletePatient(int patientId) throws Exception {
         if (patientRepository.existsById(patientId)) {
             patientRepository.deleteById(patientId);
+        } else {
+            throw new Exception("Patient not found");
         }
     }
 
