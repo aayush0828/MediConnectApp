@@ -1,39 +1,62 @@
 package com.edutech.progressive.service.impl;
 
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.edutech.progressive.entity.Patient;
 import com.edutech.progressive.repository.PatientRepository;
-
+import com.edutech.progressive.service.PatientService;
 
 
 @Service
-public class PatientServiceImplJpa {
+public class PatientServiceImplJpa implements PatientService {
+
+    private final PatientRepository patientRepository;
 
     @Autowired
-    private PatientRepository patientRepository;
+    public PatientServiceImplJpa(PatientRepository patientRepository) {
+        this.patientRepository = patientRepository;
+    }
 
+    @Override
     public List<Patient> getAllPatients() {
         return patientRepository.findAll();
     }
 
+    @Override
     public Patient getPatientById(int patientId) {
-        return patientRepository.findByPatientId(patientId);
+        return patientRepository.findById(patientId).orElse(null);
     }
 
+    @Override
     public Integer addPatient(Patient patient) {
-        patientRepository.save(patient);
-        return 1;
+        Patient saved = patientRepository.save(patient);
+        return saved.getPatientId(); // Return generated ID for test cases
     }
 
+    @Override
     public void updatePatient(Patient patient) {
-        patientRepository.save(patient);
+        if (patientRepository.existsById(patient.getPatientId())) {
+            patientRepository.save(patient);
+        }
     }
 
+    @Override
     public void deletePatient(int patientId) {
-        patientRepository.deleteById(patientId);
+        if (patientRepository.existsById(patientId)) {
+            patientRepository.deleteById(patientId);
+        }
+    }
+
+    @Override
+    public List<Patient> getAllPatientSortedByName() {
+        return patientRepository.findAll()
+                .stream()
+                .sorted(Comparator.comparing(Patient::getFullName))
+                .collect(Collectors.toList());
     }
 }
