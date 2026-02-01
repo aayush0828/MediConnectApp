@@ -22,9 +22,8 @@ public class DoctorServiceImplJpa implements DoctorService {
     }
 
     @Override
-    public Integer addDoctor(Doctor doctor) throws Exception {
-        Doctor savedDoctor = doctorRepository.save(doctor);
-        return savedDoctor.getDoctorId();
+    public Doctor addDoctor(Doctor doctor) throws Exception {
+        return doctorRepository.save(doctor); 
     }
 
     @Override
