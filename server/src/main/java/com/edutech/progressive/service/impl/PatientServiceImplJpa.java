@@ -51,7 +51,7 @@ public class PatientServiceImplJpa implements PatientService {
             patientRepository.deleteById(patientId);
         } else {
             throw new Exception("Patient not found");
-        }
+        }   
     }
 
     @Override
