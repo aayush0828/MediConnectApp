@@ -16,14 +16,22 @@ public class DoctorServiceImplJpa implements DoctorService {
     @Autowired
     private DoctorRepository doctorRepository;
 
+    public DoctorServiceImplJpa(DoctorRepository doctorRepository) {
+        this.doctorRepository = doctorRepository;
+    }
+
+    public DoctorServiceImplJpa() {
+    }
+
     @Override
     public List<Doctor> getAllDoctors() throws Exception {
         return doctorRepository.findAll();
     }
 
     @Override
-    public Doctor addDoctor(Doctor doctor) throws Exception {
-        return doctorRepository.save(doctor); 
+    public Integer addDoctor(Doctor doctor) throws Exception {
+        Doctor savedDoctor = doctorRepository.save(doctor);
+        return savedDoctor.getDoctorId();
     }
 
     @Override
@@ -33,12 +41,12 @@ public class DoctorServiceImplJpa implements DoctorService {
 
     // ✅ SIGNATURE MUST MATCH INTERFACE
     @Override
-    public Doctor updateDoctor(Doctor doctor) throws Exception {
+    public void updateDoctor(Doctor doctor) throws Exception {
     Doctor existing = doctorRepository.findByDoctorId(doctor.getDoctorId());
     if (existing == null) {
         throw new Exception("Doctor not found");
     }
-    return doctorRepository.save(doctor);
+    doctorRepository.save(doctor);
 }
 
 

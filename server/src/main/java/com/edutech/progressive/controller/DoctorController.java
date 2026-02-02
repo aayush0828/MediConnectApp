@@ -38,10 +38,10 @@ public class DoctorController {
 
     // POST /doctor
     @PostMapping
-    public ResponseEntity<Integer> addDoctor(@RequestBody Doctor doctor) {
+    public ResponseEntity<Void> addDoctor(@RequestBody Doctor doctor) {
         try {
-            Integer doctorId = doctorService.addDoctor(doctor);
-            return new ResponseEntity<>(doctorId, HttpStatus.CREATED);
+            doctorService.addDoctor(doctor);
+            return new ResponseEntity<>(HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -62,8 +62,8 @@ public class DoctorController {
     public ResponseEntity<Doctor> updateDoctor(@PathVariable int doctorId, @RequestBody Doctor doctor) {
         try {
             doctor.setDoctorId(doctorId); // ensure ID is set
-            Doctor updatedDoctor = doctorService.updateDoctor(doctor);
-            return new ResponseEntity<>(updatedDoctor, HttpStatus.OK);
+            doctorService.updateDoctor(doctor);
+            return new ResponseEntity<>(HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -74,7 +74,7 @@ public class DoctorController {
     public ResponseEntity<Void> deleteDoctor(@PathVariable int doctorId) {
         try {
             doctorService.deleteDoctor(doctorId);
-            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED); // if test expects 401
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT); // if test expects 401
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

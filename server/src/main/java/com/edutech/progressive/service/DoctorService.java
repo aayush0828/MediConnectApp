@@ -9,11 +9,11 @@ public interface DoctorService {
 
     List<Doctor> getAllDoctors() throws Exception;
 
-    Doctor addDoctor(Doctor doctor) throws Exception;  // return Doctor object
+    Integer addDoctor(Doctor doctor) throws Exception;  // return Doctor object
 
     Doctor getDoctorById(int doctorId) throws Exception;
 
-    Doctor updateDoctor(Doctor doctor) throws Exception; // takes Doctor object only
+   default void updateDoctor(Doctor doctor) throws Exception{} // takes Doctor object only
 
     void deleteDoctor(int doctorId) throws Exception;
 

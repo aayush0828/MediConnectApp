@@ -27,5 +27,13 @@ public class DoctorServiceImplArraylist implements DoctorService {
       Collections.sort(doctorList);
       return doctorList;
     }
+    @Override
+    public Doctor getDoctorById(int doctorId) throws Exception {
+        return doctorList.get(doctorId);
+    }
+    @Override
+    public void deleteDoctor(int doctorId) throws Exception {
+       deleteDoctor(doctorId);
+    }
 
 }

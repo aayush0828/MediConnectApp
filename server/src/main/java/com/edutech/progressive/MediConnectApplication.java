@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.edutech.progressive.config.DatabaseConnectionManager;
@@ -20,6 +21,7 @@ import com.edutech.progressive.service.impl.PatientServiceImplJdbc;
 @SpringBootApplication
 public class MediConnectApplication {
     public static void main(String[] args) throws Exception {
+        SpringApplication.run(MediConnectApplication.class, args);
 
        
 
